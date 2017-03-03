@@ -1,0 +1,5 @@
+		USER						DIFFICULTY							MAZE							SCORE
+---------------------------------------
+		USER						DIFFICULTY							MAZE							SCORE
+---------------------------------------
+		User	medium	25 cells	3424

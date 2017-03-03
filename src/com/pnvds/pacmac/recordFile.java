@@ -37,97 +37,92 @@ public class recordFile {
 			default:
 				filePath = "./10records.txt";
 		}		
-		
 		writeHead(filePath);
 		writeRecord(name, difficulty, size, score, filePath);
-//	    recordSort(filePath);	  
+	    recordSort(filePath);	  
 
 	}	
 	
-	static void readRecords(String size){
-			
-			BufferedReader br = null;
-			FileReader fr = null;
-			try {
-				String sCurrentLine;
-				 if (size.equals("10x10")){
-					createFile("./10records.txt"); 
-					br = new BufferedReader(new FileReader("./10records.txt"));
-				 } else if(size.equals("15x15")){
-					createFile("./15records.txt"); 
-					br = new BufferedReader(new FileReader("./15records.txt"));
-				 } else if(size.equals("20x20")){
-					createFile("./20records.txt"); 
-					br = new BufferedReader(new FileReader("./20records.txt"));
-				 }else {
-					createFile("./25records.txt"); 
-					br = new BufferedReader(new FileReader("./25records.txt"));
-				 }
-
-				while ((sCurrentLine = br.readLine()) != null) {
-					RecordsDataBase.model.addElement(sCurrentLine);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-					if (fr != null)
-						fr.close();
-
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-	
-	static void createFile(String path) throws IOException{
-		File file = new File(path);
-		if (!file.exists() && !file.isDirectory()) {
-			file.createNewFile();
-//			BufferedWriter bw = null;	
-//			FileWriter fw = new FileWriter(file, true);
-//	    	bw = new BufferedWriter(fw);
-//	    	bw.write("No records a");
-//	    	bw.close();
-		}
+	static void readRecords(String size) throws IOException{
+		
+		String filePath;
+		switch (size){
+			case "10x10": 
+				filePath = "./10records.txt";
+				break;
+			case "15x15": 
+				filePath = "./15records.txt";
+				break;
+			case "20x20": 
+				filePath = "./20records.txt";
+				break;
+			case "25x25": 
+				filePath = "./25records.txt";
+				break;
+			default:
+				filePath = "./10records.txt";
+		}	
+		readRecord(filePath);
 	}
 	
 	
 	static void writeHead(String path) throws IOException{
-		BufferedWriter bw = null;
-		//Specify the file name and path here
-		File file = new File(path);
-		FileWriter fw;
-		
+	
+		File file = new File(path);	
 		if (!file.exists() && !file.isDirectory()) {
  		  	file.createNewFile();
- 		  	try {
+ 		  	BufferedWriter bw = null;
+ 			FileWriter fw = null;
+ 			try {
  				fw = new FileWriter(file, true);
  				bw = new BufferedWriter(fw);
  				bw.write("\t\tUSER\t\t\t\t\t\tDIFFICULTY\t\t\t\t\t\t\tMAZE\t\t\t\t\t\t\tSCORE\n");
  				bw.write("---------------------------------------\n");	
  			} catch (IOException e) {
- 				// TODO Auto-generated catch block
  				e.printStackTrace();
- 			}	
-		}		
+ 			}	finally {
+ 				if (bw != null)
+ 					bw.close();
+ 				if (fw != null)
+ 					fw.close();
+ 			}
+		}	
+		
 	}
 	
-	static void writeRecord(String name, String difficulty, int size, int score, String path){
-		BufferedWriter bw = null;
-		//Specify the file name and path here
+	static void writeRecord(String name, String difficulty, int size, int score, String path) throws IOException{
+		
 		File file = new File(path);
-		FileWriter fw;
+		BufferedWriter bw = null;	
+		FileWriter fw = null;
 		try {
 			fw = new FileWriter(file, true);
 			 bw = new BufferedWriter(fw);
-			 bw.write("\t\t"+name + "\t" + difficulty + "\t" + size +" cells\t" + score+"\n");
+			 bw.write("\t\t"+name + "\t\t\t\t\t\t" + difficulty + "\t\t\t\t\t\t" + size +" cells\t\t\t\t\t\t\t" + score+"\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}	finally {
+			if (bw != null)
+				bw.close();
+			if (fw != null)
+				fw.close();
+		}
+	}
+	
+	static void readRecord(String filePath) throws IOException{
+		FileReader fr = null;
+		BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+		String currentLine;
+		while ((currentLine = br.readLine()) != null) {
+			RecordsDataBase.model.addElement(currentLine);
+		}
+			
+		if (br != null)
+			br.close();
+		if (fr != null)
+			fr.close();
 	}
 	
 	private static void toList(String path){
@@ -222,7 +217,7 @@ public class recordFile {
 	public static void recordSort(String path) throws IOException{
 		toList(path);
 		sort();
-		for (int i = 9; i < records.size(); i++) {
+		for (int i = 0; i < records.size()-10; i++) {
 			records.remove(i);
 		}
 		deleteFile(path);

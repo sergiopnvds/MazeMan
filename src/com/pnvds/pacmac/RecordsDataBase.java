@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -23,7 +24,7 @@ public class RecordsDataBase extends JPanel {
 	static JFrame frame;
   int counter = 15;
 
-  public RecordsDataBase() {
+  public RecordsDataBase() throws IOException {
     setLayout(new BorderLayout());
     model = new DefaultListModel();
     list = new JList(model);
