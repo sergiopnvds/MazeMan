@@ -66,39 +66,49 @@ public class InitWindow{
 	 */
 	public void initialize() {
 		initWindow = new JFrame("PacMaze");
-		initWindow.setBounds(100, 100, 284, 429);
+		initWindow.setBounds(100, 100, 316, 515);
 		initWindow.setResizable(false);
 		initWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initWindow.getContentPane().setLayout(null);	
 		
 		JLabel name = new JLabel("PacMaze ");
 		name.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
-		name.setBounds(47, 6, 197, 76);
+		name.setBounds(75, 6, 197, 76);
 		initWindow.getContentPane().add(name);
 		
-		JLabel PlayerName = new JLabel("Player name: ");
-		PlayerName.setBounds(26, 89, 102, 20);
-		initWindow.getContentPane().add(PlayerName);
-		
-		Pname = new JTextField();
-		Pname.setColumns(10);
-		Pname.setBounds(108, 89, 154, 20);
-		initWindow.getContentPane().add(Pname);
-		
-		JLabel recordsLabel = new JLabel("Records type: ");
-		recordsLabel.setBounds(36, 304, 102, 20);
-		initWindow.getContentPane().add(recordsLabel);
-		
-		final JComboBox mazeSize = new JComboBox(sizes);
-		mazeSize.setBounds(108, 121, 154, 20);
-		initWindow.getContentPane().add(mazeSize);
-		
-		JPanel panelLevel = new JPanel();
-		panelLevel.setBounds(19, 184, 243, 96);
-		initWindow.getContentPane().add(panelLevel);
-		panelLevel.setLayout(null);
-		panelLevel.setBorder(new LineBorder(Color.BLACK, 1, true));
-       	
+		ButtonGroup bg= new ButtonGroup();
+	
+	JPanel panel = new JPanel();
+	panel.setLayout(null);
+	panel.setBorder(new LineBorder(Color.BLACK, 1, true));
+	panel.setBounds(19, 393, 278, 82);
+	initWindow.getContentPane().add(panel);
+	
+	JLabel recordsLabel = new JLabel("Records type: ");
+	recordsLabel.setBounds(6, 16, 102, 20);
+	panel.add(recordsLabel);
+	
+	JComboBox recordsBox = new JComboBox(recordsArray);
+	recordsBox.setBounds(133, 17, 139, 20);
+	panel.add(recordsBox);
+	
+	JButton records = new JButton("Open");
+	records.setBounds(90, 48, 97, 28);
+	panel.add(records);
+	records.setForeground(Color.BLACK);
+	
+	JPanel panel_1 = new JPanel();
+	panel_1.setLayout(null);
+	panel_1.setBorder(new LineBorder(Color.BLACK, 1, true));
+	panel_1.setBounds(19, 104, 278, 251);
+	initWindow.getContentPane().add(panel_1);
+	
+	JPanel panelLevel = new JPanel();
+	panelLevel.setBounds(6, 102, 266, 96);
+	panel_1.add(panelLevel);
+	panelLevel.setLayout(null);
+	panelLevel.setBorder(new LineBorder(Color.BLACK, 1, true));
+	
 		final JRadioButton easy = new JRadioButton( "Easy" ) ;
 		//roomKing.setBounds(35, 180, 75, 24);
 		easy.setBounds(6, 49, 65, 24);
@@ -112,8 +122,6 @@ public class InitWindow{
 		final JRadioButton hard = new JRadioButton( "Hard" ) ;
 		hard.setBounds(172, 49, 65, 24);
 		panelLevel.add(hard);
-		
-		ButtonGroup bg= new ButtonGroup();
 		bg.add(easy);
 		bg.add(medium);
 		bg.add(hard);
@@ -122,16 +130,53 @@ public class InitWindow{
 		level.setBounds(6, 6, 130, 20);
 		panelLevel.add(level);
 		
+		JLabel PlayerName = new JLabel("Player name: ");
+		PlayerName.setBounds(6, 6, 102, 20);
+		panel_1.add(PlayerName);
+		
+		Pname = new JTextField();
+		Pname.setBounds(118, 6, 154, 20);
+		panel_1.add(Pname);
+		Pname.setColumns(10);
+		
+		JLabel label = new JLabel("Maze size: ");
+		label.setBounds(6, 38, 102, 20);
+		panel_1.add(label);
+		
+		final JComboBox mazeSize = new JComboBox(sizes);
+		mazeSize.setBounds(118, 38, 154, 20);
+		panel_1.add(mazeSize);
+		
 		final JComboBox mazetype = new JComboBox(types);
-		mazetype.setBounds(108, 152, 154, 20);
-		initWindow.getContentPane().add(mazetype);
+		mazetype.setBounds(118, 70, 154, 20);
+		panel_1.add(mazetype);
 		
 		JLabel game = new JLabel("Select Game: ");
-		game.setBounds(26, 152, 130, 20);
-		initWindow.getContentPane().add(game);
-
-		JButton start = new JButton("Start");
-		start.addActionListener(new ActionListener() {
+		game.setBounds(6, 69, 130, 20);
+		panel_1.add(game);
+		
+				JButton start = new JButton("Start");
+				start.setBounds(16, 210, 122, 33);
+				panel_1.add(start);
+				
+				
+	JButton cancel = new JButton("Exit");
+	cancel.setBounds(139, 210, 118, 33);
+	panel_1.add(cancel);
+	
+	JLabel lblNewGame = new JLabel("New game");
+	lblNewGame.setBounds(19, 83, 102, 20);
+	initWindow.getContentPane().add(lblNewGame);
+	
+	JLabel lblScores = new JLabel("Scores");
+	lblScores.setBounds(19, 372, 102, 20);
+	initWindow.getContentPane().add(lblScores);
+	cancel.addActionListener(new ActionListener(){
+		public void actionPerformed (ActionEvent e){
+			initWindow.dispose();
+		}	
+	});
+				start.addActionListener(new ActionListener() {
 	   		public void actionPerformed(ActionEvent ae) {
 	   			playerNameStr = Pname.getText();
 	   			if(playerNameStr.equals("")||playerNameStr.equals(null)){
@@ -146,13 +191,13 @@ public class InitWindow{
 	   				case "10x10": 	numSize=10;
 	   								break;
 	   				case "15x15": 	numSize=15;
-									break;
+											break;
 	   				case "20x20": 	numSize=20;
 	   								break;		
 	   				case "25x25": 	numSize=25;
 	   								break;
 	   				default:  		numSize=10;
-									break;
+											break;
 	   			}
 	   				   			
 	   			gameType = (String) mazetype.getSelectedItem();
@@ -176,40 +221,13 @@ public class InitWindow{
 	   			GUI.setSize(numSize);		
 	   	   		Pacman.launchGame();
    			}
-		});
-			
-		start.setBounds(26, 368, 102, 33);
-		initWindow.getContentPane().add(start);
-		
-		JComboBox recordsBox = new JComboBox(recordsArray);
-		recordsBox.setBounds(136, 305, 118, 20);
-		initWindow.getContentPane().add(recordsBox);
-		
-		JButton records = new JButton("Records");
-		records.setForeground(Color.BLACK);
-		records.addActionListener(new ActionListener(){
-			public void actionPerformed (ActionEvent e){
-				recordType=(String) recordsBox.getSelectedItem();
-				RecordsDataBase.initRecords();
-			}		
-		});
-		records.setBounds(66, 336, 154, 20);
-		initWindow.getContentPane().add(records);
-		
-		
-	JButton cancel = new JButton("Exit");
-	cancel.addActionListener(new ActionListener(){
+				});
+	records.addActionListener(new ActionListener(){
 		public void actionPerformed (ActionEvent e){
-			initWindow.dispose();
-		}	
+			recordType=(String) recordsBox.getSelectedItem();
+			RecordsDataBase.initRecords();
+		}		
 	});
-		
-	cancel.setBounds(160, 368, 97, 33);
-	initWindow.getContentPane().add(cancel);
-	
-	JLabel label = new JLabel("Maze size: ");
-	label.setBounds(26, 121, 102, 20);
-	initWindow.getContentPane().add(label);
 	}
 	
 	public static int getNumSize(){

@@ -47,7 +47,7 @@ public class RecordsDataBase extends JPanel {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 frame = new JFrame("Game records");
+					 frame = new JFrame("Game scores");
 					 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					 frame.setContentPane(new RecordsDataBase());
 					 frame.setSize(270, 630);
