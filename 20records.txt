@@ -1,4 +1,0 @@
-		USER						DIFFICULTY							MAZE								SCORE
----------------------------------------
-		User								medium								20 cells								1191
-		User								medium								20 cells								1519

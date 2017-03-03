@@ -216,7 +216,7 @@ public class Maze {
     	double time = GUI.timer.elapsedTime();
     	int score =(int)time+Player.getMovements();
         gui.end("PLAYER WINS \n Score: " + score);
-  	  	recordFile.writeRecord(InitWindow.getLPlayerName(),InitWindow.getLDifficulty() ,InitWindow.getNumSize(), score);
+  	  	recordFile.writeFile(InitWindow.getLPlayerName(),InitWindow.getLDifficulty() ,InitWindow.getNumSize(), score);
     }
 
     /**

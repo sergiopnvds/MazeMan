@@ -18,66 +18,30 @@ public class recordFile {
 	
 	static ArrayList<String[]> records;
 	
-	static void writeRecord(String name, String difficulty, int size, int score) throws FileNotFoundException, IOException {
+	static void writeFile(String name, String difficulty, int size, int score) throws FileNotFoundException, IOException {
 		
-		 BufferedWriter bw = null;
-		 boolean newFile = false;
-		 String newLine1 = "\t\tUSER\t\t\t\t\t\tDIFFICULTY\t\t\t\t\t\t\tMAZE\t\t\t\t\t\t\t\tSCORE\n";
-		 String newLine2 = "---------------------------------------\n";
-		 
+		String filePath;
+		switch (size){
+			case 10: 
+				filePath = "./10records.txt";
+				break;
+			case 15: 
+				filePath = "./15records.txt";
+				break;
+			case 20: 
+				filePath = "./20records.txt";
+				break;
+			case 25: 
+				filePath = "./25records.txt";
+				break;
+			default:
+				filePath = "./10records.txt";
+		}		
 		
-	     try {
-	    	 String mycontent = ("\t\t"+name + "\t\t\t\t\t\t\t\t" + difficulty + "\t\t\t\t\t\t\t\t" + size +" cells\t\t\t\t\t\t\t\t" + score+"\n");
-	    	  //Specify the file name and path here
-	    	 File file;
-	    	 if (size == 10){
-	    		 file = new File("./10records.txt");
-			 } else if(size == 15){
-				 file = new File("./15records.txt");
-			 } else if(size == 20){
-				 file = new File("./20records.txt");
-			 }else {
-				 file = new File("./25records.txt");
-			 }
-			 
-	    	  /* This logic will make sure that the file 
-	    	   * gets created if it is not present at the
-	    	   * specified location*/
-	    	  if (!file.exists() && !file.isDirectory()) {
-	    		  	file.createNewFile();
-	    		  	newFile=true;
-	    	  }
+		writeHead(filePath);
+		writeRecord(name, difficulty, size, score, filePath);
+//	    recordSort(filePath);	  
 
-	    	  FileWriter fw = new FileWriter(file, true);
-	    	  bw = new BufferedWriter(fw);
-	    	  if(newFile) {
-	    		  bw.write(newLine1);
-	    		  bw.write(newLine2);
-	    		  newFile=false;
-	    	  }
-	    	  bw.write(mycontent);
-	    	  
-	    	  if (size == 10){
-		    		recordSort("./10records.txt");
-				 } else if(size == 15){
-					 recordSort("./15records.txt");
-				 } else if(size == 20){
-					 recordSort("./20records.txt");
-				 }else {
-					 recordSort("./25records.txt");
-				 }
-	     } 
-	     catch (IOException ioe) {
-		   ioe.printStackTrace();
-	     }
-		finally { 
-		   try {
-		      if(bw!=null)
-			 bw.close();
-		   }
-		   catch(Exception ex){
-		    }
-		}
 	}	
 	
 	static void readRecords(String size){
@@ -130,6 +94,42 @@ public class recordFile {
 		}
 	}
 	
+	
+	static void writeHead(String path) throws IOException{
+		BufferedWriter bw = null;
+		//Specify the file name and path here
+		File file = new File(path);
+		FileWriter fw;
+		
+		if (!file.exists() && !file.isDirectory()) {
+ 		  	file.createNewFile();
+ 		  	try {
+ 				fw = new FileWriter(file, true);
+ 				bw = new BufferedWriter(fw);
+ 				bw.write("\t\tUSER\t\t\t\t\t\tDIFFICULTY\t\t\t\t\t\t\tMAZE\t\t\t\t\t\t\tSCORE\n");
+ 				bw.write("---------------------------------------\n");	
+ 			} catch (IOException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}	
+		}		
+	}
+	
+	static void writeRecord(String name, String difficulty, int size, int score, String path){
+		BufferedWriter bw = null;
+		//Specify the file name and path here
+		File file = new File(path);
+		FileWriter fw;
+		try {
+			fw = new FileWriter(file, true);
+			 bw = new BufferedWriter(fw);
+			 bw.write("\t\t"+name + "\t" + difficulty + "\t" + size +" cells\t" + score+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
 	private static void toList(String path){
 		
 		records = new ArrayList<String[]>();
@@ -162,52 +162,11 @@ public class recordFile {
 	}
 	
 	
-	
-	private static void toFile(String path){
-		
-		BufferedWriter bw = null;
-		 boolean newFile = false;
-		 String newLine1 = "\t\tUSER\t\t\t\t\t\tDIFFICULTY\t\t\t\t\t\t\tMAZE\t\t\t\t\t\t\t\tSCORE\n";
-		 String newLine2 = "---------------------------------------\n";
-		 
+	private static void toFile(String path) throws IOException{
+		writeHead(path); 
 		for (String[] strings : records) {
-			 try {
-		    	 String mycontent = ("\t\t"+ strings[1] + "\t\t\t\t\t\t\t\t" + strings[2] + "\t\t\t\t\t\t\t\t" + strings[3] +" cells\t\t\t\t\t\t\t\t" + strings[5]+"\n");
-		    	  //Specify the file name and path here
-		    	 File file = new File(path);
-				
-				 
-		    	  /* This logic will make sure that the file 
-		    	   * gets created if it is not present at the
-		    	   * specified location*/
-		    	  if (!file.exists() && !file.isDirectory()) {
-		    		  	file.createNewFile();
-		    		  	newFile=true;
-		    	  }
-
-		    	  FileWriter fw = new FileWriter(file, true);
-		    	  bw = new BufferedWriter(fw);
-		    	  if(newFile) {
-		    		  bw.write(newLine1);
-		    		  bw.write(newLine2);
-		    		  newFile=false;
-		    	  }
-		    	  bw.write(mycontent);
-		     } 
-		     catch (IOException ioe) {
-			   ioe.printStackTrace();
-		     }
-			finally { 
-			   try {
-			      if(bw!=null)
-				 bw.close();
-			   }
-			   catch(Exception ex){
-			    }
-			}
-			
-		}
-	    
+			writeRecord(strings[1], strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[5]), path); 	
+		}    
 	}	
 	
 	
@@ -258,8 +217,9 @@ public class recordFile {
 	   * 
 	   * 
 	   * @return 
+	 * @throws IOException 
 	   */
-	public static void recordSort(String path){
+	public static void recordSort(String path) throws IOException{
 		toList(path);
 		sort();
 		for (int i = 9; i < records.size(); i++) {
