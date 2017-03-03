@@ -1,0 +1,11 @@
+		USER						DIFFICULTY							MAZE								SCORE
+---------------------------------------
+		Sergio								medium								10 cells								396
+		User								medium								10 cells								454
+		User								medium								10 cells								457
+		User								easy								10 cells								459
+		User								medium								10 cells								470
+		Sergio								easy								10 cells								478
+		User								medium								10 cells								495
+		Sergio								easy								10 cells								498
+		User								medium								10 cells								526
