@@ -1,0 +1,3 @@
+		USER		SCORE
+-----------
+		User		7864 points

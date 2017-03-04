@@ -1,0 +1,4 @@
+		USER		SCORE
+-----------
+		User		9467 points
+		User		9414 points

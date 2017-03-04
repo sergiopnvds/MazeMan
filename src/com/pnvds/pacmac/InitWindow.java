@@ -26,6 +26,7 @@ public class InitWindow{
 
 	public JFrame initWindow;
 	private JTextField Pname;
+	static JComboBox mazeSize;
 
 	String[] sizes = { "10x10","15x15","20x20","25x25" } ;
 	String[] types = {"Standard","Random"} ;
@@ -37,6 +38,7 @@ public class InitWindow{
 	private static int nEnemies;
 	private static String playerNameStr;
 	private static String recordType;
+	private static int sizeAux;
 	
 	/**
 	 * Launch the application.
@@ -109,55 +111,55 @@ public class InitWindow{
 	panelLevel.setLayout(null);
 	panelLevel.setBorder(new LineBorder(Color.BLACK, 1, true));
 	
-		final JRadioButton easy = new JRadioButton( "Easy" ) ;
-		//roomKing.setBounds(35, 180, 75, 24);
-		easy.setBounds(6, 49, 65, 24);
-		panelLevel.add(easy);
+	final JRadioButton easy = new JRadioButton( "Easy" ) ;
+	//roomKing.setBounds(35, 180, 75, 24);
+	easy.setBounds(6, 49, 65, 24);
+	panelLevel.add(easy);
 		
-		final JRadioButton medium = new JRadioButton( "Medium" ) ;
-		medium.setBounds(77, 49, 88, 24);
-		panelLevel.add(medium);
-		medium.setSelected(true);
+	final JRadioButton medium = new JRadioButton( "Medium" ) ;
+	medium.setBounds(77, 49, 88, 24);
+	panelLevel.add(medium);
+	medium.setSelected(true);
 		
-		final JRadioButton hard = new JRadioButton( "Hard" ) ;
-		hard.setBounds(172, 49, 65, 24);
-		panelLevel.add(hard);
-		bg.add(easy);
-		bg.add(medium);
-		bg.add(hard);
+	final JRadioButton hard = new JRadioButton( "Hard" ) ;
+	hard.setBounds(172, 49, 65, 24);
+	panelLevel.add(hard);
+	bg.add(easy);
+	bg.add(medium);
+	bg.add(hard);
 		
-		JLabel level = new JLabel("Level of difficulty: ");
-		level.setBounds(6, 6, 130, 20);
-		panelLevel.add(level);
+	JLabel level = new JLabel("Level of difficulty: ");
+	level.setBounds(6, 6, 130, 20);
+	panelLevel.add(level);
 		
-		JLabel PlayerName = new JLabel("Player name: ");
-		PlayerName.setBounds(6, 6, 102, 20);
-		panel_1.add(PlayerName);
+	JLabel PlayerName = new JLabel("Player name: ");
+	PlayerName.setBounds(6, 6, 102, 20);
+	panel_1.add(PlayerName);
 		
-		Pname = new JTextField();
-		Pname.setBounds(118, 6, 154, 20);
-		panel_1.add(Pname);
-		Pname.setColumns(10);
+	Pname = new JTextField();
+	Pname.setBounds(118, 6, 154, 20);
+	panel_1.add(Pname);
+	Pname.setColumns(10);
 		
-		JLabel label = new JLabel("Maze size: ");
-		label.setBounds(6, 38, 102, 20);
-		panel_1.add(label);
+	JLabel label = new JLabel("Maze size: ");
+	label.setBounds(6, 38, 102, 20);
+	panel_1.add(label);
 		
-		final JComboBox mazeSize = new JComboBox(sizes);
-		mazeSize.setBounds(118, 38, 154, 20);
-		panel_1.add(mazeSize);
+	mazeSize = new JComboBox(sizes);
+	mazeSize.setBounds(118, 38, 154, 20);
+	panel_1.add(mazeSize);
 		
-		final JComboBox mazetype = new JComboBox(types);
-		mazetype.setBounds(118, 70, 154, 20);
-		panel_1.add(mazetype);
+	final JComboBox mazetype = new JComboBox(types);
+	mazetype.setBounds(118, 70, 154, 20);
+	panel_1.add(mazetype);
 		
-		JLabel game = new JLabel("Select Game: ");
-		game.setBounds(6, 69, 130, 20);
-		panel_1.add(game);
+	JLabel game = new JLabel("Select Game: ");
+	game.setBounds(6, 69, 130, 20);
+	panel_1.add(game);
 		
-				JButton start = new JButton("Start");
-				start.setBounds(16, 210, 122, 33);
-				panel_1.add(start);
+	JButton start = new JButton("Start");
+	start.setBounds(16, 210, 122, 33);
+	panel_1.add(start);
 				
 				
 	JButton cancel = new JButton("Exit");
@@ -171,63 +173,84 @@ public class InitWindow{
 	JLabel lblScores = new JLabel("Scores");
 	lblScores.setBounds(19, 372, 102, 20);
 	initWindow.getContentPane().add(lblScores);
+	
 	cancel.addActionListener(new ActionListener(){
 		public void actionPerformed (ActionEvent e){
 			initWindow.dispose();
 		}	
 	});
-				start.addActionListener(new ActionListener() {
-	   		public void actionPerformed(ActionEvent ae) {
-	   			playerNameStr = Pname.getText();
-	   			if(playerNameStr.equals("")||playerNameStr.equals(null)){
-	   				playerNameStr = "User";
-	   				Pname.setText("User");   					
-	   				}
-	   			
+	
+	start.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent ae) {
+ 			playerNameStr = Pname.getText();
+	   		if(playerNameStr.equals("")||playerNameStr.equals(null)){
+	   			playerNameStr = "User";
+	   			Pname.setText("User");   					
+	   		}	
 	   		    
-	   			String mSize = (String) mazeSize.getSelectedItem();
-	   			
-	   			switch (mSize){
-	   				case "10x10": 	numSize=10;
-	   								break;
-	   				case "15x15": 	numSize=15;
-											break;
-	   				case "20x20": 	numSize=20;
-	   								break;		
-	   				case "25x25": 	numSize=25;
-	   								break;
-	   				default:  		numSize=10;
-											break;
-	   			}
+	   		
+	   		sizeToInt();
+//	   		String mSize = (String) mazeSize.getSelectedItem();
+//	   			
+//	   		switch (mSize){
+//	   			case "10x10": 	numSize=10;
+//	  							break;
+// 				case "15x15": 	numSize=15;
+//								break;
+//   				case "20x20": 	numSize=20;
+//	   							break;		
+//	   			case "25x25": 	numSize=25;
+//	   							break;
+//	   			default:  		numSize=10;
+//	   							break;
+//	   		}
 	   				   			
-	   			gameType = (String) mazetype.getSelectedItem();
-
-	   			if (medium.isSelected()) {			
-	   				lDifficulty = "medium";
-	   				nEnemies = numSize/3+1;
-	   			}
-	   			else if (easy.isSelected()) {
-	   				lDifficulty = "easy";
-	   				nEnemies = numSize/5+1;
-	   			}
-	   			else if (hard.isSelected()) {
-	   				lDifficulty = "hard";
-	   				nEnemies = numSize/2;
-	   			}
-	   			else {
-	   				lDifficulty = "medium";
-	   				nEnemies = numSize/3+1;
-	   			}
-	   			GUI.setSize(numSize);		
-	   	   		Pacman.launchGame();
-   			}
-				});
+	   		gameType = (String) mazetype.getSelectedItem();
+	   		if (medium.isSelected()) {			
+	   			lDifficulty = "medium";
+	   			nEnemies = numSize/3+1;
+			}
+	   		else if (easy.isSelected()) {
+	   			lDifficulty = "easy";
+	   			nEnemies = numSize/5+1;
+			}
+   			else if (hard.isSelected()) {
+   				lDifficulty = "hard";
+	   			nEnemies = numSize/2;
+	   		}
+	   		else {
+	   			lDifficulty = "medium";
+	   			nEnemies = numSize/3+1;
+	   		}
+	   		sizeAux=numSize;
+	   		GUI.setSize(numSize);
+	   		Pacman.launchGame();
+	   	}
+	});
 	records.addActionListener(new ActionListener(){
 		public void actionPerformed (ActionEvent e){
-			recordType=(String) recordsBox.getSelectedItem();
-			RecordsDataBase.initRecords();
+			sizeToInt();
+			ScoresWindow.init(numSize);
 		}		
 	});
+	}
+	
+	private static void sizeToInt(){
+		
+		String mSize = (String) mazeSize.getSelectedItem();
+			
+   		switch (mSize){
+   			case "10x10": 	numSize=10;
+  							break;
+			case "15x15": 	numSize=15;
+							break;
+			case "20x20": 	numSize=20;
+   							break;		
+   			case "25x25": 	numSize=25;
+   							break;
+   			default:  		numSize=10;
+   							break;
+   		}
 	}
 	
 	public static int getNumSize(){

@@ -18,27 +18,11 @@ public class recordFile {
 	
 	static ArrayList<String[]> records;
 	
-	static void writeFile(String name, String difficulty, int size, int score) throws FileNotFoundException, IOException {
+	static void writeFile(String name, String difficulty, String gameType, int size, int score) throws FileNotFoundException, IOException {
 		
-		String filePath;
-		switch (size){
-			case 10: 
-				filePath = "./10records.txt";
-				break;
-			case 15: 
-				filePath = "./15records.txt";
-				break;
-			case 20: 
-				filePath = "./20records.txt";
-				break;
-			case 25: 
-				filePath = "./25records.txt";
-				break;
-			default:
-				filePath = "./10records.txt";
-		}		
+		String filePath = ("./"+difficulty+gameType+size+".txt");		
 		writeHead(filePath);
-		writeRecord(name, difficulty, size, score, filePath);
+		writeRecord(name, score, filePath);
 	    recordSort(filePath);	  
 
 	}	
@@ -62,7 +46,7 @@ public class recordFile {
 			default:
 				filePath = "./10records.txt";
 		}	
-		readRecord(filePath);
+		//readRecord(filePath);
 	}
 	
 	
@@ -76,8 +60,8 @@ public class recordFile {
  			try {
  				fw = new FileWriter(file, true);
  				bw = new BufferedWriter(fw);
- 				bw.write("\t\tUSER\t\t\t\t\t\tDIFFICULTY\t\t\t\t\t\t\tMAZE\t\t\t\t\t\t\tSCORE\n");
- 				bw.write("---------------------------------------\n");	
+ 				bw.write("\t\tUSER\t\tSCORE\n");
+ 				bw.write("-----------\n");	
  			} catch (IOException e) {
  				e.printStackTrace();
  			}	finally {
@@ -90,7 +74,7 @@ public class recordFile {
 		
 	}
 	
-	static void writeRecord(String name, String difficulty, int size, int score, String path) throws IOException{
+	static void writeRecord(String name, int score, String path) throws IOException{
 		
 		File file = new File(path);
 		BufferedWriter bw = null;	
@@ -98,7 +82,8 @@ public class recordFile {
 		try {
 			fw = new FileWriter(file, true);
 			 bw = new BufferedWriter(fw);
-			 bw.write("\t\t"+name + "\t\t\t\t\t\t" + difficulty + "\t\t\t\t\t\t" + size +" cells\t\t\t\t\t\t\t" + score+"\n");
+			 bw.write("\t\t"+name + "\t\t" + score+" points\n");
+			 System.out.println(path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,20 +95,47 @@ public class recordFile {
 		}
 	}
 	
-	static void readRecord(String filePath) throws IOException{
+	static void addToRecordsList(int size) throws IOException{
+		System.out.println(size);
+		readRecord("easyStandard"+size+".txt", ScoresWindow.easyStandard);
+		readRecord("mediumStandard"+size+".txt", ScoresWindow.mediumStandard);
+		readRecord("difficultStandard"+size+".txt",ScoresWindow.difficultStandard);
+		readRecord("easyRandom"+size+".txt",ScoresWindow.easyRandom);
+		readRecord("mediumRandom"+size+".txt",ScoresWindow.mediumRandom);
+		readRecord("difficultRandom"+size+".txt",ScoresWindow.difficultRandom);
+		
+	}
+	
+	static void readRecord(String filePath, String[] arrayName) throws IOException{
+		
+		System.out.println(filePath);
+		File file = new File(filePath);
+		if (!file.exists() && !file.isDirectory()) {
+ 		  	file.createNewFile();
+		}
 		FileReader fr = null;
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
-
+		int i=0;
 		String currentLine;
 		while ((currentLine = br.readLine()) != null) {
-			RecordsDataBase.model.addElement(currentLine);
+			arrayName[i]=currentLine;
+			i++;
+			//RecordsDataBase.model.addElement(currentLine);
+			
 		}
 			
 		if (br != null)
 			br.close();
 		if (fr != null)
 			fr.close();
+		
+		
+		
+		
+		
 	}
+	
+	
 	
 	private static void toList(String path){
 		
@@ -137,7 +149,7 @@ public class recordFile {
 			while ((sCurrentLine = br.readLine()) != null) {
 				String characters= "[\t .,;?!¡¿\'\"\\[\\]]+";
 				String[] words = sCurrentLine.split(characters);
-				if(words.length>5){
+				if(words.length>3){
 					records.add(words);
 				}
 			}
@@ -153,14 +165,20 @@ public class recordFile {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}	
+		}
+		
+		for (String[] strings : records) {
+			for (int i = 0; i < strings.length; i++) {
+				System.out.println(strings[i]);
+			}
+		}
 	}
 	
 	
 	private static void toFile(String path) throws IOException{
 		writeHead(path); 
 		for (String[] strings : records) {
-			writeRecord(strings[1], strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[5]), path); 	
+			writeRecord(strings[1],Integer.parseInt(strings[2]), path); 	
 		}    
 	}	
 	
@@ -177,8 +195,8 @@ public class recordFile {
 	private static void sort(){
 		int N = records.size();
 		for(int i=1; i<N; i++){
-			for(int j=i; j>0 && less(Integer.parseInt(records.get(j)[5]),  Integer.parseInt(records.get(j-1)[5])); j--)
-				switchValues(records, j, j-1);	
+			for(int j=i; j>0 && less(Integer.parseInt(records.get(j)[2]),  Integer.parseInt(records.get(j-1)[2])); j--)
+			switchValues(records, j, j-1);	
 		}	
 	}
 	
@@ -190,7 +208,7 @@ public class recordFile {
 	   * @return 
 	   */
 	private static boolean less(int valueA, int valueB){
-		if (valueA < valueB)
+		if (valueA > valueB)
 			return 	true;
 		else return false;
 	}
@@ -217,9 +235,11 @@ public class recordFile {
 	public static void recordSort(String path) throws IOException{
 		toList(path);
 		sort();
-		for (int i = 0; i < records.size()-10; i++) {
-			records.remove(i);
-		}
+		if (records.size()>10){
+			for (int i = 0; i < records.size()-10; i++) {
+				records.remove(i);
+			}
+}
 		deleteFile(path);
 		toFile(path);
 	}

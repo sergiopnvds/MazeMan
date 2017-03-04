@@ -214,9 +214,9 @@ public class Maze {
      */
     public void playerWin() throws FileNotFoundException, IOException {
     	double time = GUI.timer.elapsedTime();
-    	int score =(int)time+Player.getMovements();
+    	int score =10000-(int)time-Player.getMovements();
         gui.end("PLAYER WINS \n Score: " + score);
-  	  	recordFile.writeFile(InitWindow.getLPlayerName(),InitWindow.getLDifficulty() ,InitWindow.getNumSize(), score);
+  	  	recordFile.writeFile(InitWindow.getLPlayerName(),InitWindow.getLDifficulty() ,InitWindow.getGameType(), InitWindow.getNumSize(), score);
     }
 
     /**

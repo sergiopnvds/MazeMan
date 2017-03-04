@@ -1,3 +1,0 @@
-	User	medium	10 cells	635
-	User	medium	10 cells	578
-	User	easy	10 cells	483
