@@ -3,6 +3,7 @@ package com.pnvds.pacmac;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,12 +24,12 @@ import java.awt.Component;
 
 public class ScoresWindow {
     	
-	static String[] easyStandard = new String[10];
-	static String[] easyRandom = new String[10];
-	static String[] mediumStandard = new String[10];
-	static String[] mediumRandom = new String[10];
-	static String[] difficultStandard = new String[10];
-	static String[] difficultRandom = new String[10];
+	static String[] easyStandard = new String[12];
+	static String[] easyRandom = new String[12];
+	static String[] mediumStandard = new String[12];
+	static String[] mediumRandom = new String[12];
+	static String[] difficultStandard = new String[12];
+	static String[] difficultRandom = new String[12];
 	static JFrame frame ;
 
 
@@ -53,6 +54,7 @@ public class ScoresWindow {
 			    JList list4 = new JList(easyRandom);
 			    Container c = frame.getContentPane();
 			    JScrollPane sp1 = new JScrollPane(list1);
+			    sp1.setMaximumSize(new Dimension(200, 200));
 			    JLabel label = new JLabel("Easy");
 			    label.setForeground(Color.BLUE);
 			    sp1.setColumnHeaderView(label);
@@ -61,7 +63,7 @@ public class ScoresWindow {
 			    label_1.setForeground(Color.BLUE);
 			    sp2.setColumnHeaderView(label_1);
 			    Box box = Box.createHorizontalBox();
-			    box.setBounds(20, 20, 427, 140);
+			    box.setBounds(20, 20, 428, 140);
 			    box.add(sp1);
 			    box.add(sp2);
 			    
@@ -108,6 +110,14 @@ public class ScoresWindow {
 			    JLabel lblNewLabel_3 = new JLabel("Difficult");
 			    lblNewLabel_3.setForeground(Color.BLUE);
 			    sp6.setColumnHeaderView(lblNewLabel_3);
+			    
+			    
+			    sp1.setMaximumSize(new Dimension(200, 200));
+			    sp2.setMaximumSize(new Dimension(200, 200));
+			    sp3.setMaximumSize(new Dimension(200, 200));
+			    sp4.setMaximumSize(new Dimension(200, 200));
+			    sp5.setMaximumSize(new Dimension(200, 200));
+			    sp6.setMaximumSize(new Dimension(200, 200));
 			    
 				} catch (Exception e) {
 					e.printStackTrace();

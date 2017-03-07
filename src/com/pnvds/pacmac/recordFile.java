@@ -60,8 +60,8 @@ public class recordFile {
  			try {
  				fw = new FileWriter(file, true);
  				bw = new BufferedWriter(fw);
- 				bw.write("\t\tUSER\t\tSCORE\n");
- 				bw.write("-----------\n");	
+ 				bw.write("\t\tUSER\t\t\tSCORE\n");
+ 				bw.write("------------------\n");	
  			} catch (IOException e) {
  				e.printStackTrace();
  			}	finally {
@@ -97,6 +97,7 @@ public class recordFile {
 	
 	static void addToRecordsList(int size) throws IOException{
 		System.out.println(size);
+		System.out.println("Entro en las listas");
 		readRecord("easyStandard"+size+".txt", ScoresWindow.easyStandard);
 		readRecord("mediumStandard"+size+".txt", ScoresWindow.mediumStandard);
 		readRecord("difficultStandard"+size+".txt",ScoresWindow.difficultStandard);
@@ -120,19 +121,13 @@ public class recordFile {
 		while ((currentLine = br.readLine()) != null) {
 			arrayName[i]=currentLine;
 			i++;
-			//RecordsDataBase.model.addElement(currentLine);
-			
+			//RecordsDataBase.model.addElement(currentLine);			
 		}
 			
 		if (br != null)
 			br.close();
 		if (fr != null)
-			fr.close();
-		
-		
-		
-		
-		
+			fr.close();	
 	}
 	
 	
@@ -239,7 +234,7 @@ public class recordFile {
 			for (int i = 0; i < records.size()-10; i++) {
 				records.remove(i);
 			}
-}
+}		
 		deleteFile(path);
 		toFile(path);
 	}

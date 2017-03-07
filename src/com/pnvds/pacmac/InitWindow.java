@@ -184,8 +184,8 @@ public class InitWindow{
 		public void actionPerformed(ActionEvent ae) {
  			playerNameStr = Pname.getText();
 	   		if(playerNameStr.equals("")||playerNameStr.equals(null)){
-	   			playerNameStr = "User";
-	   			Pname.setText("User");   					
+	   			playerNameStr = "Player";
+	   			Pname.setText("Player");   					
 	   		}	
 	   		    
 	   		
