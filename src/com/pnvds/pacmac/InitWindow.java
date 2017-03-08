@@ -68,13 +68,13 @@ public class InitWindow{
 	 * Initialize the contents of the checkIn.
 	 */
 	public void initialize() {
-		initWindow = new JFrame("PacMaze");
+		initWindow = new JFrame("MazeMan");
 		initWindow.setBounds(100, 100, 316, 515);
 		initWindow.setResizable(false);
 		initWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initWindow.getContentPane().setLayout(null);	
 		
-		JLabel name = new JLabel("PacMaze ");
+		JLabel name = new JLabel("MazeMan ");
 		name.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
 		name.setBounds(75, 6, 197, 76);
 		initWindow.getContentPane().add(name);
