@@ -27,6 +27,7 @@ public class InitWindow{
 	public JFrame initWindow;
 	private JTextField Pname;
 	static JComboBox mazeSize;
+	static JComboBox recordsBox;
 
 	String[] sizes = { "10x10","15x15","20x20","25x25" } ;
 	String[] types = {"Standard","Random"} ;
@@ -38,7 +39,7 @@ public class InitWindow{
 	private static int nEnemies;
 	private static String playerNameStr;
 	private static String recordType;
-	private static int sizeAux;
+	private static int sizeRecords;
 	
 	/**
 	 * Launch the application.
@@ -90,7 +91,7 @@ public class InitWindow{
 	recordsLabel.setBounds(6, 16, 102, 20);
 	panel.add(recordsLabel);
 	
-	JComboBox recordsBox = new JComboBox(recordsArray);
+	recordsBox = new JComboBox(recordsArray);
 	recordsBox.setBounds(133, 17, 139, 20);
 	panel.add(recordsBox);
 	
@@ -222,15 +223,13 @@ public class InitWindow{
 	   			lDifficulty = "medium";
 	   			nEnemies = numSize/3+1;
 	   		}
-	   		sizeAux=numSize;
 	   		GUI.setSize(numSize);
 	   		Pacman.launchGame();
 	   	}
 	});
 	records.addActionListener(new ActionListener(){
 		public void actionPerformed (ActionEvent e){
-			sizeToInt();
-			ScoresWindow.init(numSize);
+			ScoresWindow.init(recordsSize());
 		}		
 	});
 	}
@@ -252,6 +251,21 @@ public class InitWindow{
    							break;
    		}
 	}
+	
+	
+	private static int recordsSize(){
+		
+		String recordsSize = (String) recordsBox.getSelectedItem();
+			
+   		switch (recordsSize){
+   			case "10x10": 	return 10;
+   			case "15x15": 	return 15;
+			case "20x20": 	return 20;		
+   			case "25x25": 	return 25;
+   			default:  		return 10;
+   		}
+	}
+	
 	
 	public static int getNumSize(){
 		return numSize;

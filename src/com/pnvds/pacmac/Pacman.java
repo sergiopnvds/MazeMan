@@ -28,7 +28,7 @@ public class Pacman
      */
     public static void launchGame() {
         frame = new JFrame(GUI.TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         new GUI(frame);
     }
     

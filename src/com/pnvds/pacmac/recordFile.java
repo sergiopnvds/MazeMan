@@ -27,29 +27,6 @@ public class recordFile {
 
 	}	
 	
-	static void readRecords(String size) throws IOException{
-		
-		String filePath;
-		switch (size){
-			case "10x10": 
-				filePath = "./10records.txt";
-				break;
-			case "15x15": 
-				filePath = "./15records.txt";
-				break;
-			case "20x20": 
-				filePath = "./20records.txt";
-				break;
-			case "25x25": 
-				filePath = "./25records.txt";
-				break;
-			default:
-				filePath = "./10records.txt";
-		}	
-		//readRecord(filePath);
-	}
-	
-	
 	static void writeHead(String path) throws IOException{
 	
 		File file = new File(path);	
@@ -60,7 +37,7 @@ public class recordFile {
  			try {
  				fw = new FileWriter(file, true);
  				bw = new BufferedWriter(fw);
- 				bw.write("\t\tUSER\t\t\tSCORE\n");
+ 				bw.write("\t\tUSER\t\t\t\t\t\tSCORE\n");
  				bw.write("------------------\n");	
  			} catch (IOException e) {
  				e.printStackTrace();
@@ -83,7 +60,6 @@ public class recordFile {
 			fw = new FileWriter(file, true);
 			 bw = new BufferedWriter(fw);
 			 bw.write("\t\t"+name + "\t\t" + score+" points\n");
-			 System.out.println(path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,21 +71,21 @@ public class recordFile {
 		}
 	}
 	
-	static void addToRecordsList(int size) throws IOException{
-		System.out.println(size);
-		System.out.println("Entro en las listas");
-		readRecord("easyStandard"+size+".txt", ScoresWindow.easyStandard);
+	static void addToRecordsList(int size) throws IOException{	
+		readRecord("easyStandard"+size+".txt", ScoresWindow.easyStandard);	
 		readRecord("mediumStandard"+size+".txt", ScoresWindow.mediumStandard);
 		readRecord("difficultStandard"+size+".txt",ScoresWindow.difficultStandard);
 		readRecord("easyRandom"+size+".txt",ScoresWindow.easyRandom);
 		readRecord("mediumRandom"+size+".txt",ScoresWindow.mediumRandom);
 		readRecord("difficultRandom"+size+".txt",ScoresWindow.difficultRandom);
-		
 	}
 	
 	static void readRecord(String filePath, String[] arrayName) throws IOException{
 		
-		System.out.println(filePath);
+		for (int j = 0; j < arrayName.length; j++) {
+			arrayName[j]=null;
+		}
+		
 		File file = new File(filePath);
 		if (!file.exists() && !file.isDirectory()) {
  		  	file.createNewFile();
@@ -120,14 +96,15 @@ public class recordFile {
 		String currentLine;
 		while ((currentLine = br.readLine()) != null) {
 			arrayName[i]=currentLine;
-			i++;
-			//RecordsDataBase.model.addElement(currentLine);			
+			i++;		
 		}
 			
 		if (br != null)
 			br.close();
 		if (fr != null)
 			fr.close();	
+		
+		
 	}
 	
 	
@@ -159,12 +136,6 @@ public class recordFile {
 
 			} catch (IOException ex) {
 				ex.printStackTrace();
-			}
-		}
-		
-		for (String[] strings : records) {
-			for (int i = 0; i < strings.length; i++) {
-				System.out.println(strings[i]);
 			}
 		}
 	}
