@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 
 public class Screen {
@@ -24,11 +24,11 @@ public class Screen {
 	/**
 	* Try to move enemy to cell2.
 	* If can not, nothing done.
-	* If yes, put cell with setCelda().
+	* If yes, put cell with setCell().
 	*
 	* @param enemy reference to enemy.
 	* @param cell2 cell where the enemy wants to move.
-	* @throws JugadorComido is crash with a player.
+	* @throws PlayerComido is crash with a player.
 	* @throws InterruptedException is interruption.
 	*/
 	public synchronized void moveEnemy(Enemy enemy, Cell cell2)

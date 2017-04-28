@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 public class Stopwatch {
 	private final long start;

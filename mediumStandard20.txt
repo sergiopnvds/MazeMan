@@ -1,0 +1,3 @@
+		USER						SCORE
+------------------
+		Player		7429 points

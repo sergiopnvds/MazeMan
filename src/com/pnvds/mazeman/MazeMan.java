@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 
 /**
@@ -10,7 +10,7 @@ package com.pnvds.pacmac;
 
 import javax.swing.*;
 
-public class Pacman
+public class MazeMan
         extends JApplet {
 
 	static JFrame frame;

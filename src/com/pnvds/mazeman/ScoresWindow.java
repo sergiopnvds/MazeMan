@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 
 import java.awt.BorderLayout;

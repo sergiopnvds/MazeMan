@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -224,7 +224,7 @@ public class InitWindow{
 	   			nEnemies = numSize/3+1;
 	   		}
 	   		GUI.setSize(numSize);
-	   		Pacman.launchGame();
+	   		MazeMan.launchGame();
 	   	}
 	});
 	records.addActionListener(new ActionListener(){

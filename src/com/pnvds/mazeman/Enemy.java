@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 
 public class Enemy extends Thread {
@@ -66,8 +66,8 @@ public class Enemy extends Thread {
 	 //  put the new cell in the filed cell 
 	 // claa maze.draw() to refresh the window
 		 Cell previous = this.cell;
-		 previous.setState(com.pnvds.pacmac.State.EMPTY);
-	     newCell.setState(com.pnvds.pacmac.State.ENEMY);
+		 previous.setState(com.pnvds.mazeman.State.EMPTY);
+	     newCell.setState(com.pnvds.mazeman.State.ENEMY);
 	     this.cell = newCell;
 	     maze.draw();
 	 }

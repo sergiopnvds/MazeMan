@@ -1,4 +1,4 @@
-package com.pnvds.pacmac;
+package com.pnvds.mazeman;
 
 
 import javax.swing.*;
@@ -320,7 +320,7 @@ public class GUI
          * @param event event that performs the action.
          */
         public void actionPerformed(ActionEvent event) {
-        	Pacman.getFrame().dispose();
+        	MazeMan.getFrame().dispose();
             requestFocus();
         }
     }
